@@ -142,12 +142,44 @@ void mergeSort(vector<T>& arr) {
 }
 
 template<typename T>
+size_t partition(vector<T>& arr, size_t low, size_t high) {
+    T pivot = arr[high];
+    size_t i = low;
+    for (size_t j = low; j < high; ++j) {
+        if (arr[j] < pivot) {
+            swap(arr[i], arr[j]);
+            ++i;
+        }
+    }
+    swap(arr[i], arr[high]);
+    return i;
+}
+
+template<typename T>
+void quickSortImpl(vector<T>& arr, size_t low, size_t high) {
+    if (low >= high) return;
+    size_t pi = partition(arr, low, high);
+    if (pi > 0) quickSortImpl(arr, low, pi-1);
+    quickSortImpl(arr, pi+1, high);
+}
+
+template<typename T>
 void quickSort(vector<T>& arr) {
-    wcout << L"  [ЗАГЛУШКА] quickSort не реализована" << endl;
+    if (!arr.empty()) quickSortImpl(arr, 0, arr.size() - 1);
 }
 
 template<typename T>
 bool binarySearch(const vector<T>& vec, const T& value) {
+    size_t left = 0, right = vec.size();
+    while (left < right) {
+        size_t mid = left + (right - left) / 2;
+        if (vec[mid] < value)
+            left = mid + 1;
+        else if (value < vec[mid])
+            right = mid;
+        else
+            return true;
+    }
     return false;
 }
 
