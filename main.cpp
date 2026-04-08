@@ -244,14 +244,14 @@ int main() {
 
     measureTime([&]() { bubbleSort(v_bubble);    }, L"Пузырьковая (участник 1)");
     measureTime([&]() { selectionSort(v_selection); }, L"Выбором (участник 1)");
-    measureTime([&]() { insertionSort(v_insertion); }, L"Вставками (участник 2 - заглушка)");
-    measureTime([&]() { mergeSort(v_merge);      }, L"Слиянием (участник 2 - заглушка)");
-    measureTime([&]() { quickSort(v_quick);      }, L"Быстрая (участник 3 - заглушка)");
+    measureTime([&]() { insertionSort(v_insertion); }, L"Вставками (участник 2)");
+    measureTime([&]() { mergeSort(v_merge);      }, L"Слиянием (участник 2)");
+    measureTime([&]() { quickSort(v_quick);      }, L"Быстрая (участник 3)");
     measureTime([&]() { sort(v_std.begin(), v_std.end()); }, L"std::sort (эталон)");
 
     wcout << endl << L"Примечание: сортировки с заглушками будут заменены позже." << endl;
 
-    wcout << endl << L"--- Бинарный поиск (заглушка) ---" << endl;
+    wcout << endl << L"--- Бинарный поиск ---" << endl;
     long long binaryTime = measureTime([&]() {
         for (const auto& q : queries) binarySearch(v_std, q);
     }, L"Бинарный поиск (участник 3 - заглушка)");
