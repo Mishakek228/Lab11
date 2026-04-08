@@ -1,4 +1,4 @@
-#include <iostream>
+    #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -133,12 +133,50 @@ void selectionSort(vector<T>& arr) {
 // ======================== ЗАГЛУШКИ ========================
 template<typename T>
 void insertionSort(vector<T>& arr) {
-    wcout << L"  [ЗАГЛУШКА] insertionSort не реализована" << endl;
+    size_t n = arr.size();
+    for (size_t i = 1; i < n; ++i) {
+        T key = arr[i];
+        size_t j = i;
+        while (j > 0 && key < arr[j-1]) {
+            arr[j] = arr[j-1];
+            --j;
+        }
+        arr[j] = key;
+    }
 }
 
+// Вспомогательная функция для слияния двух половин
+template<typename T>
+void merge(vector<T>& arr, size_t left, size_t mid, size_t right) {
+    vector<T> temp(right - left + 1);
+    size_t i = left, j = mid + 1, k = 0;
+    while (i <= mid && j <= right) {
+        if (arr[i] < arr[j])
+            temp[k++] = arr[i++];
+        else
+            temp[k++] = arr[j++];
+    }
+    while (i <= mid) temp[k++] = arr[i++];
+    while (j <= right) temp[k++] = arr[j++];
+    for (size_t p = 0; p < temp.size(); ++p)
+        arr[left + p] = temp[p];
+}
+
+// Рекурсивная реализация
+template<typename T>
+void mergeSortImpl(vector<T>& arr, size_t left, size_t right) {
+    if (left >= right) return;
+    size_t mid = left + (right - left) / 2;
+    mergeSortImpl(arr, left, mid);
+    mergeSortImpl(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
+
+// Основная функция, которую вызывает main
 template<typename T>
 void mergeSort(vector<T>& arr) {
-    wcout << L"  [ЗАГЛУШКА] mergeSort не реализована" << endl;
+    if (!arr.empty())
+        mergeSortImpl(arr, 0, arr.size() - 1);
 }
 
 template<typename T>
