@@ -249,8 +249,6 @@ int main() {
     measureTime([&]() { quickSort(v_quick);      }, L"Быстрая (участник 3)");
     measureTime([&]() { sort(v_std.begin(), v_std.end()); }, L"std::sort (эталон)");
 
-    wcout << endl << L"Примечание: сортировки с заглушками будут заменены позже." << endl;
-
     wcout << endl << L"--- Бинарный поиск ---" << endl;
     long long binaryTime = measureTime([&]() {
         for (const auto& q : queries) binarySearch(v_std, q);
